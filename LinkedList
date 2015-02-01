@@ -3,6 +3,8 @@
  */
 package com.linkedlistLL;
 
+import com.linkedlist.Link;
+
 /**
  * @author Mike
  *
@@ -10,21 +12,30 @@ package com.linkedlistLL;
 public class LinkListTest {
 	public static void main(String[] args) {
 		LinkList list = new LinkList();
-		list.addFront("C");
+		list.addFront("D");
 		list.addFront("B");
 		list.addFront("A");
 
-		list.addLast("D");
+		// list.addLast("D");
+		//
+		// list.remove("C");
+		//
+		// list.removeFirst();
+		//
+		// list.reverse();
+		//
+		// list.display();
 
-		list.remove("C");
-		//list.removeFirst();
-		
+		list.inserInSorted("C");
 		list.display();
 		System.out.println("Size is " + list.count());
 	}
 
 }
 
+/*
+ * Node class
+ */
 class Node {
 	String data;
 	Node next;
@@ -55,7 +66,7 @@ class LinkList {
 	}
 
 	/*
-	 * add node at the end - normal adding
+	 * Add node at the end - normal adding
 	 */
 	public void addLast(String s) {
 		Node newNode = new Node(s);
@@ -69,8 +80,9 @@ class LinkList {
 			System.out.println("Empty List");
 		}
 	}
+
 	/*
-	 * add Node at the front
+	 * Add Node at the front
 	 */
 	public void addFront(String s) {
 		Node newNode = new Node(s);
@@ -85,7 +97,7 @@ class LinkList {
 	public void removeFirst() {
 		Node currNode = head;
 		currNode = currNode.next;
-		head=currNode;
+		head = currNode;
 
 	}
 
@@ -106,17 +118,17 @@ class LinkList {
 		}
 		if (currNode == head) {
 			currNode = currNode.next;
-			head=currNode;
+			head = currNode;
 		} else {
 			previous.next = currNode.next;
 		}
 	}
 
 	public int count() {
-		int count = 1;
+		int count = 0;
 		Node currNode = head;
 		if (head != null) {
-			while (currNode.next != null) {
+			while (currNode != null) {
 				count++;
 				currNode = currNode.next;
 			}
@@ -136,5 +148,41 @@ class LinkList {
 		} else {
 			System.out.println("empty Link");
 		}
+	}
+
+	/*
+	 * To reverse the LinkedList
+	 */
+	public void reverse() {
+		Node reverseList = null;
+		Node currNode = head;
+		while (currNode != null) {
+			Node tempLink = currNode.next;
+			currNode.next = reverseList;
+			reverseList = currNode;
+			currNode = tempLink;
+		}
+		head = reverseList;
+	}
+
+	/*
+	 * 
+	 */
+	public void inserInSorted(String s) {
+		Node previous = head;
+		Node current = head;
+		while (current != null) {
+			if (current.data != null) {
+				if (current.data.compareTo(s) > 0) {
+					Node newLink = new Node(s);
+					previous.next = newLink;
+					newLink.next = current;
+					break;
+				}
+				previous = current;
+				current = current.next;
+			}
+		}
+
 	}
 }
