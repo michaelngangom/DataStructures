@@ -1,0 +1,140 @@
+/**
+ * 
+ */
+package com.linkedlistLL;
+
+/**
+ * @author Mike
+ *
+ */
+public class LinkListTest {
+	public static void main(String[] args) {
+		LinkList list = new LinkList();
+		list.addFront("C");
+		list.addFront("B");
+		list.addFront("A");
+
+		list.addLast("D");
+
+		list.remove("C");
+		//list.removeFirst();
+		
+		list.display();
+		System.out.println("Size is " + list.count());
+	}
+
+}
+
+class Node {
+	String data;
+	Node next;
+
+	Node(String d) {
+		this.data = d;
+		next = null;
+	}
+
+	public String toString() {
+		return this.data;
+	}
+
+}
+
+/*
+ * Linked List implementation
+ */
+class LinkList {
+	/**
+	 * 
+	 */
+	Node head;
+
+	public LinkList() {
+		head = null;
+
+	}
+
+	/*
+	 * add node at the end - normal adding
+	 */
+	public void addLast(String s) {
+		Node newNode = new Node(s);
+		Node currNode = head;
+		if (currNode != null) {
+			while (currNode.next != null) {
+				currNode = currNode.next;
+			}
+			currNode.next = newNode;
+		} else {
+			System.out.println("Empty List");
+		}
+	}
+	/*
+	 * add Node at the front
+	 */
+	public void addFront(String s) {
+		Node newNode = new Node(s);
+		newNode.next = head;
+		head = newNode;
+
+	}
+
+	/*
+	 * remove the first element from the list
+	 */
+	public void removeFirst() {
+		Node currNode = head;
+		currNode = currNode.next;
+		head=currNode;
+
+	}
+
+	/*
+	 * finding an element and removing it
+	 */
+	public void remove(String s) {
+		Node previous = head;
+		Node currNode = head;
+
+		while (!(currNode.data == s)) {
+			if (currNode.next == null) {
+				System.out.println("not found");
+			} else {
+				previous = currNode;
+				currNode = currNode.next;
+			}
+		}
+		if (currNode == head) {
+			currNode = currNode.next;
+			head=currNode;
+		} else {
+			previous.next = currNode.next;
+		}
+	}
+
+	public int count() {
+		int count = 1;
+		Node currNode = head;
+		if (head != null) {
+			while (currNode.next != null) {
+				count++;
+				currNode = currNode.next;
+			}
+			return count;
+		} else
+			return 0;
+	}
+
+	public void display() {
+		Node currNode = head;
+		if (currNode != null) {
+			while (currNode != null) {
+				System.out.println(currNode.data);
+				currNode = currNode.next;
+			}
+
+		} else {
+			System.out.println("empty Link");
+		}
+	}
+}
